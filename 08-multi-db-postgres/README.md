@@ -24,5 +24,8 @@ docker run --name mongoclient -p 3000:3000 --link mongodb:mongodb -d mongoclient
 <!-- CRIAR USUÁRIO COM PERMISSÕES DE LER E ESCREVER NO DB -->
 docker exec -it mongodb mongo --host localhost -u admin -p 123mudar --authenticationDatabase admin --eval "db.getSiblingDB('herois').createUser({user: 'rodrigorufino', pwd: '123mudar', roles: [{role: 'readWrite', db: 'herois'}]})"
 
+<!-- ACESSAR INTERFACE -->
+192.168.99.100:3000
+
 <!-- REATIVAR CONTAINERS -->
 docker start NOME_CONTAINER
