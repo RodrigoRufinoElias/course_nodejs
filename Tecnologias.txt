@@ -1,4 +1,9 @@
 - Node.js
 - Javascript
 - Typescript
-- Mocha
+- Mocha (Básico)
+- Docker (Básico)
+- Padrão de Projetos Strategy
+- TDD
+- Postgres
+- MongoDB
