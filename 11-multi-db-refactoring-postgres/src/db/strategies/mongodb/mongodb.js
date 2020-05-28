@@ -1,4 +1,4 @@
-const ICrud = require("./interfaces/interface.crud");
+const ICrud = require("../interfaces/interface.crud");
 const Mongoose = require("mongoose");
 
 const STATUS = {
@@ -9,43 +9,24 @@ const STATUS = {
 };
 
 class MongoDB extends ICrud {
-  constructor() {
+  constructor(connection, schema) {
     super();
-    this._herois = null;
-    this._driver = null;
+    this._schema = schema;
+    this._connection = connection;
   }
 
   async isConnected() {
-      const state = STATUS[this._driver.readyState];
+      const state = STATUS[this._connection.readyState];
 
       if (state === 'Conectado') return state;
       if (state !== 'Conectando') return state;
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      return STATUS[this._driver.readyState];
+      return STATUS[this._connection.readyState];
   }
 
-  defineModel() {
-    const heroiSchema = new Mongoose.Schema({
-        nome: {
-            type: String,
-            required: true
-        },
-        poder: {
-            type: String,
-            required: true
-        },
-        insertedAt: {
-            type: Date,
-            default: new Date()
-        }
-    });
-    
-    this._herois = Mongoose.model('herois', heroiSchema);
-  }
-
-  connect() {
+  static connect() {
     Mongoose.connect(
       "mongodb://rodrigorufino:123mudar@192.168.99.100:27017/herois",
       { useNewUrlParser: true, useUnifiedTopology: true },
@@ -56,26 +37,25 @@ class MongoDB extends ICrud {
     );
 
     const connection = Mongoose.connection;
-    this._driver = connection;
-    this.defineModel();
-
     connection.once('open', () => console.log('Database rodando !!!'));
+
+    return connection;
   }
 
   async create(item) {
-    return await this._herois.create(item);
+    return await this._schema.create(item);
   }
 
   async read(item, skip=0, limit=10) {
-    return await this._herois.find(item).skip(skip).limit(limit);
+    return await this._schema.find(item).skip(skip).limit(limit);
   }
 
   async update(id, item) {
-    return await this._herois.updateOne({_id: id}, {$set: item});
+    return await this._schema.updateOne({_id: id}, {$set: item});
   }
 
   async delete(id) {
-    return await this._herois.deleteOne({_id: id});
+    return await this._schema.deleteOne({_id: id});
   }
 }
 
