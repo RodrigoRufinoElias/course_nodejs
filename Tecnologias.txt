@@ -7,3 +7,4 @@
 - TDD
 - Postgres
 - MongoDB
+- Hapi.js
