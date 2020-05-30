@@ -38,7 +38,7 @@ describe('MongoDB Strategy', function () {
         const expected = 'Conectado';
 
         assert.equal(result, expected);
-    })
+    });
 
     it('Cadastrar', async function () {
         const { nome, poder } = await context.create(MOCK_HEROI_CADASTRAR);
