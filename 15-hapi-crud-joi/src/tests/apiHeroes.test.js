@@ -8,9 +8,24 @@ const MOCK_HEROI_CADASTRAR = {
     poder: 'Marreta Biônica'
 }
 
+const MOCK_HEROI_ATUALIZAR = {
+    nome: 'Dr. Estranho',
+    poder: 'Magia'
+}
+
+let MOCK_ID = '';
+
 describe.only("Suite de testes da API Heroes", function () {
   this.beforeAll(async () => {
     app = await api;
+    
+    const result = await app.inject({
+      method: "POST",
+      url: `/herois`,
+      payload: JSON.stringify(MOCK_HEROI_ATUALIZAR)
+    });
+
+    MOCK_ID = JSON.parse(result.payload)._id;
   });
 
   it("Listar /herois", async () => {
@@ -88,5 +103,40 @@ describe.only("Suite de testes da API Heroes", function () {
     assert.ok(statusCode === 200);
     assert.notStrictEqual(_id, undefined);
     assert.deepEqual(message, 'Heroi cadastrado com sucesso!');
+  });
+
+  it("Atualizar /herois/:id", async function () {
+    const _id = MOCK_ID;
+
+    const expected = {
+      poder: 'Místico'
+    };
+
+    const result = await app.inject({
+      method: "PATCH",
+      url: `/herois/${_id}`,
+      payload: JSON.stringify(expected)
+    });
+
+    const statusCode = result.statusCode;
+    const dados = JSON.parse(result.payload);
+
+    assert.ok(statusCode === 200);
+    assert.deepEqual(dados.message, 'Heroi atualizado com sucesso!');
+  });
+
+  it("Remover /herois/:id", async function () {
+    const _id = MOCK_ID;
+
+    const result = await app.inject({
+      method: "DELETE",
+      url: `/herois/${_id}`
+    });
+
+    const statusCode = result.statusCode;
+    const dados = JSON.parse(result.payload);
+
+    assert.ok(statusCode === 200);
+    assert.deepEqual(dados.message, 'Heroi removido com sucesso!');
   });
 });
