@@ -14,8 +14,8 @@ class ContextStrategy extends ICrud {
         return await this._database.read(item, skip, limit);
     }
     
-    async update(id, item) {
-        return await this._database.update(id, item);
+    async update(id, item, upsert) {
+        return await this._database.update(id, item, upsert);
     }
     
     async delete(id) {

@@ -34,7 +34,6 @@ class Postgres extends ICrud {
         );
 
         return connection;
-        // await this.defineModel();
     }
 
     static async defineModel(connection, schema) {
@@ -55,8 +54,10 @@ class Postgres extends ICrud {
         return await this._schema.findAll({where: item, raw: true});
     }
 
-    async update(id, item) {
-        return await this._schema.update(item, {where: {id: id}});
+    async update(id, item, upsert = false) {
+        const fn = upsert ? 'upsert' : 'update';
+        
+        return await this._schema[fn](item, {where: {id}});
     }
 
     async delete(id) {
