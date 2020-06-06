@@ -3,6 +3,20 @@
 // npm i hapi-auth-jwt2@8.2.0
 // npm i bcrypt
 
+const { config } = require('dotenv');
+const { join } = require('path');
+const { ok } = require('assert');
+
+const env = process.env.NODE_ENV || "dev";
+
+ok(env === 'prod' || env === 'dev', 'A env é inválida. Ou dev ou prod');
+
+const configPath = join(__dirname, './config', `.env.${env}`);
+
+config({
+    path: configPath
+});
+
 const Hapi = require('hapi');
 const Context = require('./db/strategies/base/contextStrategy');
 const MongoDB = require('./db/strategies/mongodb/mongodb');
@@ -17,10 +31,10 @@ const Inert = require('inert');
 const Vision = require('vision');
 
 const HapiJwt = require('hapi-auth-jwt2');
-const JWT_SECRET = 'MEU_SECRET_!@#';
+const JWT_SECRET = process.env.JWT_KEY;
 
 const app = new Hapi.Server({
-    port: 5000
+    port: process.env.PORT
 });
 
 function mapRoutes(instance, methods) {
