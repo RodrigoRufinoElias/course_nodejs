@@ -1,5 +1,5 @@
 const assert = require("assert");
-const api = require("../api");
+const api = require("../../api");
 const Postgres = require('../db/strategies/postgres/postgres');
 const Context = require('../db/strategies/base/contextStrategy');
 const UsuarioSchema = require('../db/strategies/postgres/schemas/usuarioSchema');

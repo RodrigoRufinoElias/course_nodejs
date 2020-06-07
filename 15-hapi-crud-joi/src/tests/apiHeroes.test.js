@@ -1,5 +1,5 @@
 const assert = require("assert");
-const api = require("../api");
+const api = require("../../api");
 
 const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvZHJpZ29ydWZpbm8iLCJpZCI6MSwiaWF0IjoxNTkxMjE5MTMxfQ.Bcxu7TKTEsHfBY5rCUbiy0QlvmWoVXvK6ZQ-KoDFrOU";
 

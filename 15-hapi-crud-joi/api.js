@@ -18,13 +18,13 @@ config({
 });
 
 const Hapi = require('hapi');
-const Context = require('./db/strategies/base/contextStrategy');
-const MongoDB = require('./db/strategies/mongodb/mongodb');
-const Postgres = require('./db/strategies/postgres/postgres');
-const HeroiSchema = require('./db/strategies/mongodb/schemas/heroisSchema');
-const UsuarioSchema = require('./db/strategies/postgres/schemas/usuarioSchema');
-const HeroRoute = require('./routes/heroRoutes');
-const AuthRoute = require('./routes/authRoutes');
+const Context = require('./src/db/strategies/base/contextStrategy');
+const MongoDB = require('./src/db/strategies/mongodb/mongodb');
+const Postgres = require('./src/db/strategies/postgres/postgres');
+const HeroiSchema = require('./src/db/strategies/mongodb/schemas/heroisSchema');
+const UsuarioSchema = require('./src/db/strategies/postgres/schemas/usuarioSchema');
+const HeroRoute = require('./src/routes/heroRoutes');
+const AuthRoute = require('./src/routes/authRoutes');
 
 const HapiSwagger = require('hapi-swagger');
 const Inert = require('inert');
