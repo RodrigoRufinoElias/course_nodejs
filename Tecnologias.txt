@@ -10,3 +10,5 @@
 - Hapi.js
 - Swagger
 - JWT
+- MongoDB Atlas
+- Heroku
