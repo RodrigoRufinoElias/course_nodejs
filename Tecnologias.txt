@@ -12,3 +12,5 @@
 - JWT
 - MongoDB Atlas
 - Heroku
+- PM2
+- Istanbul
